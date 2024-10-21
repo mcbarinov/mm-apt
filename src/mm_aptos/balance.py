@@ -6,41 +6,38 @@ from mm_aptos.types import Nodes, Proxies
 from mm_aptos.utils import random_node, random_proxy
 
 
-def get_balance(
-    nodes: Nodes,
-    account_address: str,
-    coin_type: str,
-    timeout: int = 10,
-    proxies: Proxies = None,
-    attempts: int = 3,
+def get_balance(nodes: str, account_address: str, coin_type: str, timeout: float = 5.0, proxy: str | None = None) -> Result[int]:
+    url = f"{random_node(nodes)}/accounts/{account_address}/resource/0x1::coin::CoinStore%3C{coin_type}%3E"
+    res = hr(url, proxy=proxy, timeout=timeout)
+    try:
+        if res.json.get("error_code") == "resource_not_found":
+            return Ok(0, data=res.to_dict())
+        return Ok(int(res.json["data"]["coin"]["value"]), data=res.to_dict())
+    except Exception as err:
+        return Err(err, data=res.to_dict())
+
+
+def get_balance_with_retries(
+    retries: int, nodes: Nodes, account_address: str, coin_type: str, timeout: float = 5.0, proxies: Proxies = None
 ) -> Result[int]:
-    result: Result[int] = Err("not_started")
-    for _ in range(attempts):
-        url = f"{random_node(nodes)}/accounts/{account_address}/resource/0x1::coin::CoinStore%3C{coin_type}%3E"
-        res = hr(url, proxy=random_proxy(proxies), timeout=timeout)
-        data = res.to_dict()
-        try:
-            if isinstance(res, Err):
-                result = Err(res.unwrap_err(), data=data)
-                continue
-            if res.json.get("error_code") == "resource_not_found":
-                return Ok(0, data=data)
-            return Ok(int(res.json["data"]["coin"]["value"]), data=data)
-        except Exception as err:
-            result = Err(err, data=data)
-    return result
+    res: Result[int] = Err("not started yet")
+    for _ in range(retries):
+        res = get_balance(random_node(nodes), account_address, coin_type, timeout=timeout, proxy=random_proxy(proxies))
+        if res.is_ok():
+            return res
+    return res
 
 
-def get_balance_decimal(
+def get_decimal_balance_with_retries(
+    retries: int,
     nodes: Nodes,
     account_address: str,
     coin_type: str,
     decimals: int,
     round_ndigits: int = 5,
-    timeout: int = 10,
+    timeout: float = 5.0,
     proxies: Proxies = None,
-    attempts: int = 3,
 ) -> Result[Decimal]:
-    return get_balance(nodes, account_address, coin_type, timeout=timeout, proxies=proxies, attempts=attempts).and_then(
-        lambda o: Ok(round(Decimal(o / 10**decimals), ndigits=round_ndigits)),
+    return get_balance_with_retries(retries, nodes, account_address, coin_type, timeout=timeout, proxies=proxies).and_then(
+        lambda o: Ok(round(Decimal(o / 10**decimals), ndigits=round_ndigits))
     )
