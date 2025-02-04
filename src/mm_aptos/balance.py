@@ -1,9 +1,7 @@
 from decimal import Decimal
 
+from mm_crypto_utils import Nodes, Proxies, random_node, random_proxy
 from mm_std import Err, Ok, Result, hr
-
-from mm_aptos.types import Nodes, Proxies
-from mm_aptos.utils import random_node, random_proxy
 
 
 def get_balance(nodes: str, account_address: str, coin_type: str, timeout: float = 5.0, proxy: str | None = None) -> Result[int]:

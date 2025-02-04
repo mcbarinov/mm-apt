@@ -1,10 +1,8 @@
 from dataclasses import asdict
 
 import yaml
+from mm_crypto_utils import Proxies, random_proxy
 from mm_std import Err, Ok, Result, hr, run_command
-
-from mm_aptos.types import Proxies
-from mm_aptos.utils import random_proxy
 
 
 # noinspection DuplicatedCode
