@@ -1,10 +1,10 @@
 [project]
 name = "mm-aptos"
-version = "0.2.0"
+version = "0.2.1"
 description = ""
 requires-python = ">=3.12"
 dependencies = [
-    "mm-crypto-utils>=0.1.2",
+    "mm-crypto-utils>=0.2.6",
 ]
 
 [build-system]
@@ -15,11 +15,10 @@ build-backend = "hatchling.build"
 dev-dependencies = [
     "pytest~=8.3.4",
     "pytest-xdist~=3.6.1",
-    "ruff~=0.9.4",
-    "pip-audit~=2.7.3",
-    "bandit~=1.8.2",
-    "mypy~=1.14.1",
-    "types-PyYAML~=6.0.12.20241230",
+    "ruff~=0.9.9",
+    "pip-audit~=2.8.0",
+    "bandit~=1.8.3",
+    "mypy~=1.15.0"
 ]
 
 [tool.mypy]
