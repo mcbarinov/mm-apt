@@ -9,7 +9,7 @@ async def get_balance(
     try:
         json_res = res.parse_json_body()
         if json_res.get("error_code") == "resource_not_found":
-            return DataResult(ok=0, data=res.model_dump())
-        return DataResult(ok=int(json_res["data"]["coin"]["value"]), data=res.model_dump())
+            return DataResult.ok(0, res.model_dump())
+        return DataResult.ok(int(json_res["data"]["coin"]["value"]), res.model_dump())
     except Exception as err:
-        return DataResult(err="exception", data={"response": res.model_dump(), "exception": str(err)})
+        return DataResult.exception(err, {"response": res.model_dump(), "exception": str(err)})

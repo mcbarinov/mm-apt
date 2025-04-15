@@ -8,7 +8,7 @@ async def address_to_primary_name(address: str, timeout: float = 5, proxy: str |
         return res.to_data_result_err()
     json_res = res.parse_json_body()
     if res.status_code == 200 and json_res == {}:
-        return DataResult(ok=None, data=res.model_dump(), ok_is_none=True)
+        return DataResult.ok(None, res.model_dump())
     if "name" in json_res:
-        return DataResult(ok=json_res["name"], data=res.model_dump())
-    return DataResult(err="unknown_response", data=res.model_dump())
+        return DataResult.ok(json_res["name"], res.model_dump())
+    return DataResult.err("unknown_response", res.model_dump())
