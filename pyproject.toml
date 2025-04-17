@@ -1,10 +1,10 @@
 [project]
-name = "mm-aptos"
-version = "0.3.0"
+name = "mm-apt"
+version = "0.3.1"
 description = ""
 requires-python = ">=3.12"
 dependencies = [
-    "mm-crypto-utils>=0.3.0",
+    "mm-crypto-utils>=0.3.1",
 ]
 
 [build-system]
@@ -19,7 +19,7 @@ dev-dependencies = [
     "pip-audit~=2.9.0",
     "bandit~=1.8.3",
     "mypy~=1.15.0",
-    "anyio>=4.9.0",
+    "pytest-asyncio>=0.26.0",
 ]
 
 [tool.mypy]
@@ -64,8 +64,9 @@ ignore = [
 quote-style = "double"
 indent-style = "space"
 
-
-
 [tool.bandit]
 exclude_dirs = ["tests"]
 skips = ["B311"]
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"

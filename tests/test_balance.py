@@ -1,9 +1,9 @@
 import pytest
 
-from mm_aptos.balance import get_balance
-from mm_aptos.coin import APTOS_COIN_TYPE
+from mm_apt.balance import get_balance
+from mm_apt.coin import APTOS_COIN_TYPE
 
-pytestmark = pytest.mark.anyio
+pytestmark = pytest.mark.asyncio
 
 
 async def test_get_balance(mainnet_rpc_url, okx_address):
