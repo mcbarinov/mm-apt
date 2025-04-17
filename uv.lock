@@ -435,7 +435,7 @@ wheels = [
 
 [[package]]
 name = "mm-aptos"
-version = "0.2.6"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "mm-crypto-utils" },
@@ -453,7 +453,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "mm-crypto-utils", specifier = ">=0.2.15" }]
+requires-dist = [{ name = "mm-crypto-utils", specifier = ">=0.3.0" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -468,19 +468,19 @@ dev = [
 
 [[package]]
 name = "mm-crypto-utils"
-version = "0.2.15"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "loguru" },
     { name = "mm-std" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/2d/d454b33604f43efeea62fe2830933bc666cdd7d1e47c5904671b4ddcc836/mm_crypto_utils-0.2.15-py3-none-any.whl", hash = "sha256:a87560b5314d8cf6b387d9330d5d47ea10bd3073d5d5f43e54b1e10a4f0a799e", size = 9708 },
+    { url = "https://files.pythonhosted.org/packages/37/f4/015e3b86ccbef0d62c4008d960fe9a4e3ede5bc06702efdec21c6fd45b74/mm_crypto_utils-0.3.0-py3-none-any.whl", hash = "sha256:dd06b2555c875e2c33a402c04ade82e1cb7abaf9f22adeef8b9fad81ceae17ac", size = 9768 },
 ]
 
 [[package]]
 name = "mm-std"
-version = "0.3.30"
+version = "0.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -496,7 +496,7 @@ dependencies = [
     { name = "tomlkit" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4f/44/639f0d9b9663c7a8357b13668c31dfbf3b0e0c7aa617f072757a1b53ecbc/mm_std-0.3.30-py3-none-any.whl", hash = "sha256:2ea26c9f3850fc47ba4873bebb3ffaa17c0b1d991f7c7d890f688e0e76730dbc", size = 26624 },
+    { url = "https://files.pythonhosted.org/packages/11/5e/f4ba6bc61ad41c2e0e737900d7fd0beccca8cd7189076d744b0a18ad4857/mm_std-0.4.2-py3-none-any.whl", hash = "sha256:b709400fd6fc0864c0dcbc57cc0f21f6b00c5420f6a7349423604d2688fa02d9", size = 23481 },
 ]
 
 [[package]]

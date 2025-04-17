@@ -1,66 +1,27 @@
-from mm_crypto_utils import Proxies, random_proxy
-from mm_std import Err, Ok, Result, hr, hra
+from mm_std import Result, http_request
 
 
-def address_to_primary_name(address: str, timeout: float = 5, proxies: Proxies = None, attempts: int = 3) -> Result[str | None]:
-    result: Result[str | None] = Err("not_started")
-    url = f"https://www.aptosnames.com/api/mainnet/v1/primary-name/{address}"
-    for _ in range(attempts):
-        res = hr(url, proxy=random_proxy(proxies), timeout=timeout)
-        data = res.to_dict()
-        try:
-            if res.code == 200 and res.json == {}:
-                return Ok(None, data=data)
-            return Ok(res.json["name"], data=data)
-        except Exception as e:
-            result = Err(e, data=data)
-    return result
-
-
-async def address_to_primary_name_async(
-    address: str, timeout: float = 5, proxies: Proxies = None, attempts: int = 3
-) -> Result[str | None]:
-    result: Result[str | None] = Err("not_started")
-    url = f"https://www.aptosnames.com/api/mainnet/v1/primary-name/{address}"
-    for _ in range(attempts):
-        res = await hra(url, proxy=random_proxy(proxies), timeout=timeout)
-        data = res.to_dict()
-        try:
-            if res.code == 200 and res.json == {}:
-                return Ok(None, data=data)
-            return Ok(res.json["name"], data=data)
-        except Exception as e:
-            result = Err(e, data=data)
-    return result
-
-
-def address_to_name(address: str, timeout: float = 5, proxies: Proxies = None, attempts: int = 3) -> Result[str | None]:
-    result: Result[str | None] = Err("not_started")
+async def address_to_name(address: str, timeout: float = 5, proxy: str | None = None) -> Result[str | None]:
     url = f"https://www.aptosnames.com/api/mainnet/v1/name/{address}"
-    for _ in range(attempts):
-        res = hr(url, proxy=random_proxy(proxies), timeout=timeout)
-        data = res.to_dict()
-        try:
-            if res.code == 200 and res.json == {}:
-                return Ok(None, data=data)
-            return Ok(res.json["name"], data=data)
-        except Exception as e:
-            result = Err(e, data=data)
-    return result
+    res = await http_request(url, proxy=proxy, timeout=timeout)
+    if res.is_error():
+        return res.to_result_err()
+    json_res = res.parse_json_body()
+    if res.status_code == 200 and json_res == {}:
+        return res.to_result_ok(None)
+    if "name" in json_res:
+        return res.to_result_ok(json_res["name"])
+    return res.to_result_err("unknown_response")
 
 
-async def address_to_name_async(
-    address: str, timeout: float = 5, proxies: Proxies = None, attempts: int = 3
-) -> Result[str | None]:
-    result: Result[str | None] = Err("not_started")
-    url = f"https://www.aptosnames.com/api/mainnet/v1/name/{address}"
-    for _ in range(attempts):
-        res = await hra(url, proxy=random_proxy(proxies), timeout=timeout)
-        data = res.to_dict()
-        try:
-            if res.code == 200 and res.json == {}:
-                return Ok(None, data=data)
-            return Ok(res.json["name"], data=data)
-        except Exception as e:
-            result = Err(e, data=data)
-    return result
+async def address_to_primary_name(address: str, timeout: float = 5, proxy: str | None = None) -> Result[str | None]:
+    url = f"https://www.aptosnames.com/api/mainnet/v1/primary-name/{address}"
+    res = await http_request(url, proxy=proxy, timeout=timeout)
+    if res.is_error():
+        return res.to_result_err()
+    json_res = res.parse_json_body()
+    if res.status_code == 200 and json_res == {}:
+        return res.to_result_ok(None)
+    if "name" in json_res:
+        return res.to_result_ok(json_res["name"])
+    return res.to_result_err("unknown_response")
