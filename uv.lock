@@ -413,7 +413,7 @@ wheels = [
 
 [[package]]
 name = "mm-apt"
-version = "0.3.3"
+version = "0.3.4"
 source = { editable = "." }
 dependencies = [
     { name = "mm-crypto-utils" },
@@ -431,7 +431,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "mm-crypto-utils", specifier = ">=0.3.5" }]
+requires-dist = [{ name = "mm-crypto-utils", specifier = ">=0.3.6" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -446,14 +446,14 @@ dev = [
 
 [[package]]
 name = "mm-crypto-utils"
-version = "0.3.5"
+version = "0.3.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "loguru" },
     { name = "mm-std" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4d/a2/884d26cd5d5b236e79370892ae5c859a2396bd8395b27c18df34462fa9f8/mm_crypto_utils-0.3.5-py3-none-any.whl", hash = "sha256:e01afc1b51f2fdf9bc3cc87c363a5d5debd489ca72dfc940ef70c80c21156162", size = 10071, upload_time = "2025-04-19T06:15:33.143Z" },
+    { url = "https://files.pythonhosted.org/packages/1c/09/c6dcf43a19d9d31a3f1dcc2367fdf7fde73c7bf5f8eaad7ada907930324e/mm_crypto_utils-0.3.6-py3-none-any.whl", hash = "sha256:ad4328130100e178b7c7388c58b4a6ccb2b7b3635e52a1fc21b323063573652c", size = 10484, upload_time = "2025-04-22T06:57:01.239Z" },
 ]
 
 [[package]]
