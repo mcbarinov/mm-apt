@@ -1,10 +1,10 @@
 [project]
 name = "mm-apt"
-version = "0.3.5"
+version = "0.4.0"
 description = ""
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
-    "mm-crypto-utils>=0.3.7",
+    "mm-cryptocurrency~=0.4.4",
 ]
 
 [build-system]
@@ -13,13 +13,14 @@ build-backend = "hatchling.build"
 
 [tool.uv]
 dev-dependencies = [
-    "pytest~=8.3.5",
-    "pytest-xdist~=3.6.1",
-    "ruff~=0.11.8",
+    "pytest~=8.4.0",
+    "pytest-asyncio~=1.0.0",
+    "pytest-xdist~=3.7.0",
+    "ruff~=0.11.13",
     "pip-audit~=2.9.0",
     "bandit~=1.8.3",
-    "mypy~=1.15.0",
-    "pytest-asyncio~=0.26.0",
+    "mypy~=1.16.0",
+    "python-dotenv>=1.1.0",
 ]
 
 [tool.mypy]

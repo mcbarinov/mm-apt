@@ -1,10 +1,18 @@
+import os
+
 import pytest
-from mm_std import get_dotenv
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MAINNET_RPC_URL = os.getenv("MAINNET_RPC_URL")
 
 
 @pytest.fixture
 def mainnet_rpc_url() -> str:
-    return get_dotenv("MAINNET_RPC_URL")
+    if not MAINNET_RPC_URL:
+        raise ValueError("MAINNET_RPC_URL environment variable is not set.")
+    return MAINNET_RPC_URL
 
 
 @pytest.fixture

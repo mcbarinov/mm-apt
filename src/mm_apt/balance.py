@@ -1,4 +1,5 @@
-from mm_std import Result, http_request
+from mm_http import http_request
+from mm_result import Result
 
 
 async def get_balance(node: str, account: str, coin_type: str, timeout: float = 5, proxy: str | None = None) -> Result[int]:
@@ -7,7 +8,7 @@ async def get_balance(node: str, account: str, coin_type: str, timeout: float = 
     try:
         json_res = res.parse_json_body()
         if json_res.get("error_code") == "resource_not_found":
-            return res.to_ok(0)
-        return res.to_ok(int(json_res["data"]["coin"]["value"]))
+            return res.to_result_ok(0)
+        return res.to_result_ok(int(json_res["data"]["coin"]["value"]))
     except Exception as e:
-        return res.to_err(e)
+        return res.to_result_err(e)
